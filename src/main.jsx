@@ -74,12 +74,21 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our menu </h2>
-      {numPizzas > 0 && (
-        <ul className="pizzas">
-          {pizzaData.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
-          ))}
-        </ul>
+
+      {numPizzas > 0 ? (
+        <>
+          <p>
+            Authentic Italian cuisine. 6 creative dishes to choose from.All from
+            our stone oven, all organic, all delicious.
+          </p>
+          <ul className="pizzas">
+            {pizzaData.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </>
+      ) : (
+        <p>we're still working on our menu please come back later :).</p>
       )}
     </main>
   );
@@ -107,17 +116,28 @@ function Footer() {
   // if (hour >= openHour && hour <= closeHour) {
   //   alert("we are currently open");
   // } else alert("Sorry   we are currently closed");
-
+  //
   return (
     <footer className="footer">
-      {isOpen && (
-        <div>
-          <p>we're open untile {closeHour}:00. Come visit us or order online</p>
-          <button className="btn">Order</button>
-        </div>
+      {isOpen ? (
+        <Order closeHour={closeHour} />
+      ) : (
+        <p>
+          We're happy to welcome you between {openHour}:00 and {closeHour}
+        </p>
       )}
       {/* {new Date().toLocaleTimeString()}.We are currently open */}
     </footer>
+  );
+}
+function Order(props) {
+  return (
+    <div>
+      <p>
+        we're open untile {props.closeHour}:00. Come visit us or order online
+      </p>
+      <button className="btn">Order</button>
+    </div>
   );
 }
 
